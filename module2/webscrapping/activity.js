@@ -13,9 +13,11 @@ function cb (error, response, html){
     else{
         const dom = new JSDOM(html);
         const document = dom.window.document;
-     let teamsname = document.querySelectorAll(".ds-text-tight-l.ds-font-bold");
+     let teamsname = document.querySelectorAll(".ds-inline-flex.ds-items-center.ds-leading-none .ds-text-tight-l.ds-font-bold");
         console.log(teamsname[0].textContent);
         console.log(teamsname[1].textContent);
+        
+        
     }   
       
     
