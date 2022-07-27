@@ -16,40 +16,37 @@ function cb(error,response,body)
     else{
         const dom = new JSDOM(body);
         const document  = dom.window.document;
-       let batsmenRow = document.querySelectorAll( '.ds-w-full.ds-table.ds-table-xs.ds-table-fixed.ci-scorecard-table');
+        let mostrun = 0;
+        let mostrunscorer = "";
+      
+        let batsmenRow = document.querySelectorAll( '.ds-w-full.ds-table.ds-table-xs.ds-table-fixed.ci-scorecard-table');
     //    console.log(batsmenRow.length);
-    let mostrun = 0;
-    let mostrunscorer = "";
-     for(let i = 0;i<batsmenRow.length;i++)
+    
+     for(let i = 1;i<batsmenRow.length;i++)
      {
-        let rows = document.querySelectorAll(".ds-w-full.ds-table.ds-table-xs.ds-table-fixed.ci-scorecard-table  tbody tr");
+
+        let rows = batsmenRow[i].querySelectorAll(".ds-w-full.ds-table.ds-table-xs.ds-table-fixed.ci-scorecard-table  tbody tr");
         for(let j = 0;j<rows.length;j++)
         {
-            let tds = rows[j].querySelectorAll("td");
+            
+
+            let tds = rows[j].querySelectorAll(" td ");
             if(tds.length > 4)
             {
-                let name = tds[0].textContent;
-                
-                let run = tds[7].textContent;
-                // console.log(name + " scored" + run );
-                
-                    if(run > mostrun)
+                let runs = tds[2].textContent;
+              
+                console.log(runs + " scored  "   );
+                    if(runs > mostrun)
                     {
-                        mostrun = run;
-                        mostrunscorer = name;
+                        mostrun = runs;
                     }
-                
-                
-                
-                
-            
-            }
+                  
+ 
+                }
         }
      }
-     console.log("highest run scored" + mostrun);
-     console.log("highest run scorer" + mostrunscorer);
-
-
+  
+        console.log(mostrun);
 
     }
 }
