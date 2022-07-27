@@ -34,11 +34,12 @@ function cb(error,response,body)
             if(tds.length > 4)
             {
                 let runs = tds[2].textContent;
-              
+              let scorer = tds[0].textContent;
                 console.log(runs + " scored  "   );
                     if(runs > mostrun)
                     {
                         mostrun = runs;
+                        mostrunscorer = scorer;
                     }
                   
  
@@ -46,7 +47,6 @@ function cb(error,response,body)
         }
      }
   
-        console.log(mostrun);
-
+        console.log(mostrunscorer + " " + mostrun);
     }
 }
