@@ -1,5 +1,5 @@
 // .ds-flex.ds-mx-4.ds-pt-2.ds-pb-3.ds-space-x-4.ds-border-t.ds-border-line-default-translucent a .ds-text-compact-xs.ds-font-medium
-
+const fs = require('fs');
  const request = require('request');
 const jsdom = require("jsdom");
 
@@ -10,7 +10,7 @@ const link = "https://www.espncricinfo.com/series/ipl-2021-1249214/match-results
 
 
 let leaderboard = [];
-
+let counter = 0;
 request(link,cb);
 
 function cb(error,response,html)
@@ -30,6 +30,7 @@ function cb(error,response,html)
         
             let completelink = "https://www.espncricinfo.com" + link;
             request(completelink,cb2);
+            counter++;
         }
     }
 }
@@ -65,17 +66,26 @@ function cb2(error,response,html)
                   
         // console.log("Name:",name,"Runs :",runs,"Balls:",balls,"Fours :",fours,"Sixes: ",sixes);
           
-                      
+        ProcessPlayer(name,runs,balls,fours,sixes);                      
      
                     }
+            }
+
+            counter--;
+            if(counter == 0)
+            {
+                console.log(leaderboard);
+                let data = JSON.stringify(leaderboard);
+                fs.writeFileSync('BatsmanStats.json',data);
+                 
             }
          }
     }
 
 }
 
-ProcessPlayer('Bhavesh','10','2','1','1');
-console.log(leaderboard);
+
+
 
 
 function ProcessPlayer(name,runs,balls,fours,sixes)
@@ -95,6 +105,7 @@ function ProcessPlayer(name,runs,balls,fours,sixes)
         if(PlayerObj.Name == name)
         {
             PlayerObj.Runs += runs;
+            PlayerObj.Innings += 1;
             PlayerObj.Balls += balls;
             PlayerObj.Fours += fours;
             PlayerObj.sixes +=sixes;
@@ -108,6 +119,7 @@ function ProcessPlayer(name,runs,balls,fours,sixes)
     //agar pehli baar batting aayi he tab
     let obj = {
             Name :name,
+            Innings:1,
             Runs:runs,
             Balls:balls,
             Fours:fours,
@@ -115,7 +127,7 @@ function ProcessPlayer(name,runs,balls,fours,sixes)
         }
 
         leaderboard.push(obj);
-
+           
 }
 
 
