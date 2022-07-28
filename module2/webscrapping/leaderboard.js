@@ -8,6 +8,9 @@ const { JSDOM } = jsdom;
 
 const link = "https://www.espncricinfo.com/series/ipl-2021-1249214/match-results";
 
+
+let leaderboard = [];
+
 request(link,cb);
 
 function cb(error,response,html)
@@ -20,7 +23,7 @@ function cb(error,response,html)
         const dom = new JSDOM(html);
         const document = dom.window.document;
         let allScoredCardTags = document.querySelectorAll(".ds-flex.ds-mx-4.ds-pt-2.ds-pb-3.ds-space-x-4.ds-border-t.ds-border-line-default-translucent .ds-inline-flex.ds-items-center.ds-leading-none a");
-        console.log(allScoredCardTags.length);
+        // console.log(allScoredCardTags.length);
         for(let i = 2;i<allScoredCardTags.length;i = i + 4)
         {
         let link =  allScoredCardTags[i].href;
@@ -60,7 +63,7 @@ function cb2(error,response,html)
                     let fours = tds[5].textContent;
                     let sixes = tds[6].textContent;
                   
-        console.log("Name:",name,"Runs :",runs,"Balls:",balls,"Fours :",fours,"Sixes: ",sixes);
+        // console.log("Name:",name,"Runs :",runs,"Balls:",balls,"Fours :",fours,"Sixes: ",sixes);
           
                       
      
@@ -70,4 +73,49 @@ function cb2(error,response,html)
     }
 
 }
+
+ProcessPlayer('Bhavesh','10','2','1','1');
+console.log(leaderboard);
+
+
+function ProcessPlayer(name,runs,balls,fours,sixes)
+{
+
+    runs = Number(runs);
+    balls = Number(balls);
+    fours = Number(fours);
+    sixes = Number(sixes);
+    for(let i = 0;i<leaderboard.length ;i++)
+    {
+
+        
+        let PlayerObj = leaderboard[i];
+        
+        //agar pehle batting kar rakhi he tab
+        if(PlayerObj.Name == name)
+        {
+            PlayerObj.Runs += runs;
+            PlayerObj.Balls += balls;
+            PlayerObj.Fours += fours;
+            PlayerObj.sixes +=sixes;
+        return;
+            
+
+        }
+
+    }   
+      
+    //agar pehli baar batting aayi he tab
+    let obj = {
+            Name :name,
+            Runs:runs,
+            Balls:balls,
+            Fours:fours,
+            Sixes:sixes
+        }
+
+        leaderboard.push(obj);
+
+}
+
 
