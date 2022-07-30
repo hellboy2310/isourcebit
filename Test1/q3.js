@@ -1,3 +1,13 @@
+// Title: Rain Dance
+
+// Meta-Tags: Javascript, JS, interview, questions, interview questions, arrays,objects,practice
+
+// Description: You are given a week's rainfall data of few cities Using the data write a function rainDance which returns an array of objects each object containing city name and average rainfall.
+
+
+
+
+
 // Sample Input:
 // [
 //   { name: "Roorkee", rainfall: [5, 6, 5, 5, 4, 7, 8] },
@@ -10,30 +20,37 @@
 //   { name: "Pauri", avgRainfall: 2.2857142857142856 },
 // ];
 
-
-
-function RainDance(arr){
-let ans = [];
-for(let i =0;i<arr.length;i++)
+function rainDance(arr)
 {
-    let obj  = {};
-    obj.name = arr[i].name;
-    let sum = 0;
-    let rainfall = arr[i].rainfall;
-    for(let j = 0;j<rainfall.length;j++)
+
+    let ans = [];
+
+    for(let i = 0;i<arr.length;i++)
     {
-        sum = sum + rainfall[j];
+        let obj = {};
+        obj.name = arr[i].name;
+        
+
+        let rainfallArr = arr[i].rainfall;
+        let sum  = 0;
+        for(let j = 0;j<rainfallArr.length;j++)
+        {
+            sum = sum + rainfallArr[j];
+        }
+        let avg = sum/rainfallArr.length;
+        obj.avg = avg;
+        ans.push(obj);
     }
-    let avg = sum / rainfall.length;
-    obj.avg = avg;
-    ans.push(obj)
-}
-return ans;
+
+    
+
+
+    return ans;
 }
 
-console.log(RainDance([
+console.log(rainDance([
     { name: "Delhi", rainfall: [2.3, 4, 3.1, 5.5, 1.1, 1.2, 7] },
-        { name: "Noida", rainfall: [6.3, 0, 0.1, 3.5, 1, 2.6, 0.7] },
-        { name: "Dehradun", rainfall: [12, 5.6, 3.1, 0.55, 11, 16.2, 19] },
-        { name: "Nanital", rainfall: [8, 1.4, 0.61, 15.5, 6.6, 2, 9.82] },
+//     { name: "Noida", rainfall: [6.3, 0, 0.1, 3.5, 1, 2.6, 0.7] },
+//     { name: "Dehradun", rainfall: [12, 5.6, 3.1, 0.55, 11, 16.2, 19] },
+//     { name: "Nanital", rainfall: [8, 1.4, 0.61, 15.5, 6.6, 2, 9.82] },
 ]))
