@@ -1,6 +1,6 @@
 const puppeteer  = require('puppeteer');
 
-const mail = "cawosad436@aikusy.com";
+const mail = "gajenew897@logodez.com";
 const pass = "ush@_1234"
 
 // .fl-button-wrap.fl-button-width-auto.fl-button-left  a
@@ -55,8 +55,6 @@ broswerPromise.then(function(browser){
 }).then(function(){
     let clickSelector  = page.click('input[value = "warmup"] ');
     return clickSelector;
-}).then(function(){
-    return waitForSelector(".pull-left.inline-block .challengecard-title");
 })
 
 
